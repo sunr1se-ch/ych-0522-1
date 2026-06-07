@@ -36,7 +36,7 @@ interface TrainingActions {
   resetSegmentMatchedIndices: () => void;
 }
 
-const initialState: TrainingState = {
+export const initialState: TrainingState = {
   isPlaying: false,
   currentTime: 0,
   musicData: null,
@@ -135,7 +135,11 @@ export const useTrainingStore = create<TrainingState & TrainingActions>(
 
       const tempMatched = new Set<number>();
       matchedIndices.forEach(i => {
-        if (!searchWindow.includes(i)) {
+        if (isPracticeMode && practiceSegment) {
+          if (!searchWindow.includes(i)) {
+            tempMatched.add(i);
+          }
+        } else {
           tempMatched.add(i);
         }
       });
@@ -220,6 +224,7 @@ export const useTrainingStore = create<TrainingState & TrainingActions>(
         if (newMatched.has(index)) return;
 
         if (isPracticeMode && practiceSegment && !practiceSegment.breathPointIndices.has(index)) {
+          newMatched.add(index);
           return;
         }
 
