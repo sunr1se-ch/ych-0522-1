@@ -20,8 +20,17 @@ export default function Home() {
     bestRecord,
     hitRecords,
     isFinished,
+    isPracticeMode,
+    practiceSegment,
+    practiceLoopCount,
+    selectedRounds,
     handlePlayPause,
     handleReset,
+    handleToggleRoundSelection,
+    clearRoundSelection,
+    handleEnterPracticeMode,
+    handleExitPracticeMode,
+    canEnterPracticeMode,
     playError,
   } = useTrainingLogic();
 
@@ -48,6 +57,9 @@ export default function Home() {
             currentTime={currentTime}
             hitRecords={hitRecords}
             matchedIndices={matchedIndices}
+            isPracticeMode={isPracticeMode}
+            practiceSegment={practiceSegment}
+            practiceLoopCount={practiceLoopCount}
           />
 
           <div className="grid lg:grid-cols-5 gap-6">
@@ -63,6 +75,8 @@ export default function Home() {
               <StatsPanel
                 stats={stats}
                 totalBreathPoints={musicData.breathPoints.length}
+                isPracticeMode={isPracticeMode}
+                practiceSegment={practiceSegment}
               />
             </div>
           </div>
@@ -70,15 +84,27 @@ export default function Home() {
           <ControlButtons
             isPlaying={isPlaying}
             isFinished={isFinished}
+            isPracticeMode={isPracticeMode}
+            practiceSegment={practiceSegment}
+            practiceLoopCount={practiceLoopCount}
             playError={playError}
+            canEnterPractice={canEnterPracticeMode()}
             onPlayPause={handlePlayPause}
             onReset={handleReset}
+            onEnterPractice={handleEnterPracticeMode}
+            onExitPractice={handleExitPracticeMode}
           />
 
           <BreathSchedule
             musicData={musicData}
             hitRecords={hitRecords}
             currentTime={currentTime}
+            isPlaying={isPlaying}
+            isPracticeMode={isPracticeMode}
+            practiceSegment={practiceSegment}
+            selectedRounds={selectedRounds}
+            onToggleRoundSelection={handleToggleRoundSelection}
+            onClearRoundSelection={clearRoundSelection}
           />
 
           <Instructions />

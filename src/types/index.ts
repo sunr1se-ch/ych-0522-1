@@ -49,6 +49,14 @@ export interface BestRecord {
   date: string;
 }
 
+export interface PracticeSegment {
+  startRound: number;
+  endRound: number;
+  startTime: number;
+  endTime: number;
+  breathPointIndices: Set<number>;
+}
+
 export interface TrainingState {
   isPlaying: boolean;
   currentTime: number;
@@ -60,4 +68,8 @@ export interface TrainingState {
   lastDeviation: number | null;
   bestRecord: BestRecord | null;
   isFinished: boolean;
+  isPracticeMode: boolean;
+  practiceSegment: PracticeSegment | null;
+  practiceLoopCount: number;
+  selectedRounds: Set<number>;
 }
